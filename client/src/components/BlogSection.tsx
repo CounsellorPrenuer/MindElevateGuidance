@@ -1,23 +1,18 @@
 import { useState } from 'react';
-import { Calendar, Clock, ArrowRight, X } from 'lucide-react';
+import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@/components/ui/dialog';
-
-interface BlogPost {
-  title: string;
-  excerpt: string;
-  content: string;
-  date: string;
-  readTime: string;
-  category: string;
-}
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import type { BlogPost } from '@shared/schema';
 
 export default function BlogSection() {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
 
-  const blogPosts: BlogPost[] = [
+  //todo: remove mock functionality - fallback mock data
+  const mockBlogPosts: BlogPost[] = [
     {
+      id: '1',
       title: 'Choosing the Right Career Path: A Guide for Students',
       excerpt: 'Discover how to align your interests, skills, and values to make informed career decisions that lead to long-term satisfaction.',
       content: `Making the right career choice is one of the most important decisions in a student's life. It's not just about choosing a profession—it's about finding a path that aligns with your passions, strengths, and long-term goals.
@@ -38,8 +33,10 @@ Remember, your career is a journey, not a destination. Stay open to learning and
       date: 'Jan 15, 2025',
       readTime: '5 min read',
       category: 'Career Guidance',
+      createdAt: new Date(),
     },
     {
+      id: '2',
       title: 'The Role of Parents in Career Planning',
       excerpt: 'Learn how parents can effectively support their children without imposing their own aspirations or creating unnecessary pressure.',
       content: `Parents play a crucial role in their children's career decisions, but finding the right balance between guidance and autonomy is essential.
@@ -64,8 +61,10 @@ Trust in the process and remember that your role is to empower, not to control.`
       date: 'Jan 10, 2025',
       readTime: '4 min read',
       category: 'Parenting',
+      createdAt: new Date(),
     },
     {
+      id: '3',
       title: 'Career Transitions: Navigating Change with Confidence',
       excerpt: 'Professional insights on successfully transitioning careers, overcoming challenges, and finding fulfillment in new opportunities.',
       content: `Career transitions can be daunting, but they also offer incredible opportunities for growth and fulfillment.
@@ -94,8 +93,15 @@ Your past experiences are not wasted—they're the foundation for your next chap
       date: 'Jan 5, 2025',
       readTime: '6 min read',
       category: 'Professional Development',
+      createdAt: new Date(),
     },
   ];
+
+  const { data: blogPostsData } = useQuery<BlogPost[]>({
+    queryKey: ['/api/blog-posts'],
+  });
+
+  const blogPosts = blogPostsData && blogPostsData.length > 0 ? blogPostsData : mockBlogPosts;
 
   return (
     <section id="blog" className="py-16 md:py-24 bg-background">

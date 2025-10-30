@@ -1,33 +1,48 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
 import { Card } from '@/components/ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+import type { Testimonial } from '@shared/schema';
 import studentAvatar from '@assets/generated_images/Student_testimonial_avatar_42054a15.png';
 import parentAvatar from '@assets/generated_images/Parent_testimonial_avatar_3f634bcf.png';
 import professionalAvatar from '@assets/generated_images/Professional_testimonial_avatar_9f555e1d.png';
 
 export default function TestimonialsSection() {
-  const testimonials = [
+  //todo: remove mock functionality - fallback mock data
+  const mockTestimonials = [
     {
+      id: '1',
       name: 'Priya Sharma',
       role: 'Class 12 Student',
       avatar: studentAvatar,
       quote: 'Dr. Gladis helped me gain clarity about my career path. Her guidance was instrumental in choosing the right stream and college. I now feel confident about my future!',
+      createdAt: new Date(),
     },
     {
+      id: '2',
       name: 'Rajesh Kumar',
       role: 'Parent',
       avatar: parentAvatar,
       quote: 'As parents, we were confused about guiding our daughter. Dr. Gladis provided us with practical insights and a clear roadmap. Her expertise made all the difference.',
+      createdAt: new Date(),
     },
     {
+      id: '3',
       name: 'Anita Desai',
       role: 'Corporate Professional',
       avatar: professionalAvatar,
       quote: 'The career transition guidance I received was exceptional. Dr. Gladis understood my challenges and helped me navigate towards a more fulfilling career path.',
+      createdAt: new Date(),
     },
   ];
+
+  const { data: testimonialsData } = useQuery<Testimonial[]>({
+    queryKey: ['/api/testimonials'],
+  });
+
+  const testimonials = testimonialsData && testimonialsData.length > 0 ? testimonialsData : mockTestimonials;
 
   const [currentIndex, setCurrentIndex] = useState(0);
 

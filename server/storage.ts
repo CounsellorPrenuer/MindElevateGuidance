@@ -48,6 +48,7 @@ export interface IStorage {
   // Payment methods
   getAllPayments(): Promise<Payment[]>;
   getPayment(id: string): Promise<Payment | undefined>;
+  getPaymentByOrderId(orderId: string): Promise<Payment | undefined>;
   createPayment(payment: InsertPayment): Promise<Payment>;
   updatePayment(id: string, payment: Partial<InsertPayment>): Promise<Payment | undefined>;
 }
@@ -180,7 +181,12 @@ export class MemStorage implements IStorage {
 
   async createContact(insertContact: InsertContact): Promise<Contact> {
     const id = randomUUID();
-    const contact: Contact = { ...insertContact, id, createdAt: new Date() };
+    const contact: Contact = { 
+      ...insertContact, 
+      id, 
+      phone: insertContact.phone || null,
+      createdAt: new Date() 
+    };
     this.contacts.set(id, contact);
     return contact;
   }
@@ -200,9 +206,20 @@ export class MemStorage implements IStorage {
     return this.payments.get(id);
   }
 
+  async getPaymentByOrderId(orderId: string): Promise<Payment | undefined> {
+    return Array.from(this.payments.values()).find(payment => payment.razorpayOrderId === orderId);
+  }
+
   async createPayment(insertPayment: InsertPayment): Promise<Payment> {
     const id = randomUUID();
-    const payment: Payment = { ...insertPayment, id, createdAt: new Date() };
+    const payment: Payment = { 
+      ...insertPayment, 
+      id, 
+      razorpayPaymentId: insertPayment.razorpayPaymentId || null,
+      currency: insertPayment.currency || 'INR',
+      status: insertPayment.status || 'created',
+      createdAt: new Date() 
+    };
     this.payments.set(id, payment);
     return payment;
   }

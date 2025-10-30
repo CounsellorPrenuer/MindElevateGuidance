@@ -1,15 +1,11 @@
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import heroImage from '@assets/generated_images/Hero_section_background_image_e3ef8340.png';
 
 export default function HeroSection() {
-  const scrollToContact = () => {
-    const element = document.querySelector('#contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const [, setLocation] = useLocation();
 
   const scrollToServices = () => {
     const element = document.querySelector('#services');
@@ -48,10 +44,10 @@ export default function HeroSection() {
               size="lg"
               variant="default"
               className="text-base px-8 bg-primary/90 backdrop-blur-sm"
-              onClick={scrollToContact}
-              data-testid="button-book-free-call"
+              onClick={() => setLocation('/booking')}
+              data-testid="button-book-session"
             >
-              Book Free Consultation
+              Book a Session
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button
