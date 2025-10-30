@@ -8,7 +8,6 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: '/', label: 'Home' },
     { href: '#why-mindelevate', label: 'Why MindElevate' },
     { href: '#about', label: 'About' },
     { href: '#services', label: 'Services' },
@@ -29,21 +28,21 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b">
-      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <Link href="/" className="flex items-center gap-3 hover-elevate active-elevate-2 transition-transform rounded-md p-2 -m-2">
-            <img src={logoImage} alt="MindElevate" className="h-10 w-10 md:h-12 md:w-12" />
-            <span className="font-bold text-lg md:text-xl text-foreground">MindElevate</span>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md shadow-sm">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
+        <div className="flex items-center justify-between h-20 md:h-24">
+          <Link href="/" className="flex items-center gap-4 hover-elevate active-elevate-2 transition-all duration-300 rounded-lg p-2 -m-2" data-testid="link-home">
+            <img src={logoImage} alt="MindElevate" className="h-13 w-13 md:h-16 md:w-16" />
+            <span className="font-bold text-xl md:text-2xl text-foreground tracking-tight">MindElevate</span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-2">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.href)}
-                className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-colors hover-elevate rounded-md"
+                className="px-5 py-2.5 text-sm font-medium text-foreground/70 hover:text-foreground transition-all duration-200 hover-elevate rounded-lg"
                 data-testid={`link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
               >
                 {link.label}
@@ -51,8 +50,8 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="hidden lg:flex items-center gap-3">
-            <Button variant="outline" size="default" asChild data-testid="button-book-session">
+          <div className="hidden lg:flex items-center">
+            <Button variant="default" size="default" className="shadow-sm" asChild data-testid="button-book-session">
               <Link href="#contact">Book a Session</Link>
             </Button>
           </div>
