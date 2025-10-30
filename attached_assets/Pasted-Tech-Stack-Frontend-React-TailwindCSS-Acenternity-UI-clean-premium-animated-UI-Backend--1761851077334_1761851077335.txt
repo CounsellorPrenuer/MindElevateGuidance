@@ -1,0 +1,168 @@
+Tech Stack:
+
+Frontend: React + TailwindCSS + Acenternity UI (clean, premium & animated UI)
+
+Backend: Node.js + Express
+
+Database: MongoDB
+
+Payment: Razorpay integration
+
+Admin Dashboard: Secure CRUD panel to edit homepage content, services, testimonials, and blog posts.
+
+Site Goals:
+
+Build personal brand authority
+
+Attract new clients
+
+Display services + testimonials
+
+Blog/Articles for career & mindset guidance
+
+Showcase workshops & seminars
+
+Theme & UI Requirements:
+
+Colors: Blue, Purple, White/Light Grey
+
+Clean modern design like the reference doc
+
+Smooth animations, hover effects, modals
+
+Fully responsive
+
+Use icons, illustrations, professional fonts
+
+Interactive cards, blog preview grid, testimonials slider
+
+Website Pages & Sections (Same flow as the reference):
+
+Home
+
+Hero tagline + mission statement
+
+About Dr. Gladis Diana
+
+Services Cards
+
+Workshops & Seminars intro
+
+Testimonials slider
+
+Blog preview grid
+
+Contact CTA
+
+Why MindElevate
+
+Who we help
+
+Why choose us
+
+Career & mindset transformation focus
+
+About Dr. Gladis Diana Sivakumar
+
+Full profile, mission, values, approach
+
+Image placeholder
+
+Services
+
+Career Guidance
+
+Admission Guidance
+
+Workshops & Seminars
+
+Blog / Articles
+
+Blog list + “Read more” modal
+
+Testimonials
+
+Placeholder + admin-editable
+
+Contact
+
+Contact form (email to admin)
+
+Phone number + email + social links
+
+Razorpay Payment Page
+
+Simple “Book Counseling Session” payment option
+
+Store order in DB
+
+🔐 Admin Dashboard
+
+Route: /admin
+
+Hard-coded credentials:
+
+Email: admin@mindElevate.com
+
+Password: mind123
+
+CRUD for: Homepage text, services, testimonials, blog posts
+
+✅ Client Data to Use
+
+Brand Name: MindElevate – Elevating perspectives and Careers through Counseling
+Client: Dr. Gladis Diana Sivakumar
+Bio:
+I'm Dr.Gladis Diana Sivakumar, a dedicated counselor and mentor with a deep passion for guiding individuals towards personal and professional success. With 16 years of experience in Career Guidance, life coaching etc, I specialize in helping clients unlock their potential, overcome challenges and navigate their journeys with clarity and confidence. Through Mentorpreneur, I empower ambitious individuals and business leaders to develop resilience, sharpen their vision, and build meaningful success stories. My approach combines practical strategies, mindset shifts, industry insights — ensuring each person I work with experiences genuine growth and transformation. Whether you're seeking direction, looking to scale new heights, or simply need a fresh perspective, I'm here to help you to take that next step. Let's connect and build something extraordinary together.
+
+Services:
+
+Career Guidance
+
+Workshops & Seminars
+
+Admission Guidance
+
+Target Audience:
+
+Students
+
+Parents
+
+Schools & Colleges
+
+Corporates & Working Professionals
+
+Primary Goal: Branding, showcasing services, client acquisition
+
+Homepage Sections:
+
+About Me
+
+Services
+
+Testimonials
+
+Contact
+
+Blog
+
+Socials:
+
+Instagram: Gladis diana
+
+LinkedIn: linkedin.com/in/gladis-diana-63617129
+
+Facebook: Gladis diana
+
+Twitter/X: Gladis diana
+
+Contact Info:
+
+Email: gladis69diana@gmail.com
+
+Phone: 9791237169
+
+Domain: elevatemindset.com (use as placeholder text)
+
+Build this exactly like a polished coaching/mentorship brand website.
