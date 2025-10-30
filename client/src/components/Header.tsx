@@ -31,9 +31,8 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md shadow-sm">
       <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
         <div className="flex items-center justify-between h-20 md:h-24">
-          <Link href="/" className="flex items-center gap-4 hover-elevate active-elevate-2 transition-all duration-300 rounded-lg p-2 -m-2" data-testid="link-home">
-            <img src={logoImage} alt="MindElevate" className="h-13 w-13 md:h-16 md:w-16" />
-            <span className="font-bold text-xl md:text-2xl text-foreground tracking-tight">MindElevate</span>
+          <Link href="/" className="flex items-center hover-elevate active-elevate-2 transition-all duration-300 rounded-lg p-2 -m-2" data-testid="link-home">
+            <img src={logoImage} alt="MindElevate" className="h-16 w-16 md:h-20 md:w-20" />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-2">
