@@ -1,49 +1,19 @@
-import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { Card } from '@/components/ui/card';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import type { Testimonial } from '@shared/schema';
-import studentAvatar from '@assets/generated_images/Student_testimonial_avatar_42054a15.png';
-import parentAvatar from '@assets/generated_images/Parent_testimonial_avatar_3f634bcf.png';
-import professionalAvatar from '@assets/generated_images/Professional_testimonial_avatar_9f555e1d.png';
+import { testimonials as fallbackTestimonials } from '@/content/siteContent';
+import { getTestimonials } from '@/lib/sanity';
 
 export default function TestimonialsSection() {
-  //todo: remove mock functionality - fallback mock data
-  const mockTestimonials = [
-    {
-      id: '1',
-      name: 'Priya Sharma',
-      role: 'Class 12 Student',
-      avatar: studentAvatar,
-      quote: 'Dr. Gladis helped me gain clarity about my career path. Her guidance was instrumental in choosing the right stream and college. I now feel confident about my future!',
-      createdAt: new Date(),
-    },
-    {
-      id: '2',
-      name: 'Rajesh Kumar',
-      role: 'Parent',
-      avatar: parentAvatar,
-      quote: 'As parents, we were confused about guiding our daughter. Dr. Gladis provided us with practical insights and a clear roadmap. Her expertise made all the difference.',
-      createdAt: new Date(),
-    },
-    {
-      id: '3',
-      name: 'Anita Desai',
-      role: 'Corporate Professional',
-      avatar: professionalAvatar,
-      quote: 'The career transition guidance I received was exceptional. Dr. Gladis understood my challenges and helped me navigate towards a more fulfilling career path.',
-      createdAt: new Date(),
-    },
-  ];
-
-  const { data: testimonialsData } = useQuery<Testimonial[]>({
-    queryKey: ['/api/testimonials'],
+  const { data } = useQuery({
+    queryKey: ['sanity', 'testimonials'],
+    queryFn: getTestimonials,
   });
 
-  const testimonials = testimonialsData && testimonialsData.length > 0 ? testimonialsData : mockTestimonials;
-
+  const testimonials = data && data.length > 0 ? data : fallbackTestimonials;
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const next = () => {
@@ -55,9 +25,17 @@ export default function TestimonialsSection() {
   };
 
   useEffect(() => {
+    if (testimonials.length === 0) {
+      return;
+    }
+
     const interval = setInterval(next, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [testimonials.length]);
+
+  if (testimonials.length === 0) {
+    return null;
+  }
 
   return (
     <section id="testimonials" className="py-16 md:py-24 bg-gradient-to-b from-muted/30 to-background">
@@ -72,52 +50,29 @@ export default function TestimonialsSection() {
         <div className="relative max-w-4xl mx-auto">
           <Card className="p-8 md:p-12">
             <Quote className="h-12 w-12 text-primary/20 mb-6" />
-            <p className="text-xl md:text-2xl text-foreground mb-8 leading-relaxed italic">
-              {testimonials[currentIndex].quote}
-            </p>
+            <p className="text-xl md:text-2xl text-foreground mb-8 leading-relaxed italic">{testimonials[currentIndex].quote}</p>
             <div className="flex items-center gap-4">
               <Avatar className="h-16 w-16">
-                <AvatarImage src={testimonials[currentIndex].avatar} alt={testimonials[currentIndex].name} />
+                <AvatarImage src={testimonials[currentIndex].avatar || undefined} alt={testimonials[currentIndex].name} />
                 <AvatarFallback>{testimonials[currentIndex].name[0]}</AvatarFallback>
               </Avatar>
               <div>
-                <p className="font-semibold text-lg" data-testid={`testimonial-name-${currentIndex}`}>
-                  {testimonials[currentIndex].name}
-                </p>
+                <p className="font-semibold text-lg" data-testid={`testimonial-name-${currentIndex}`}>{testimonials[currentIndex].name}</p>
                 <p className="text-sm text-muted-foreground">{testimonials[currentIndex].role}</p>
               </div>
             </div>
           </Card>
 
           <div className="flex items-center justify-center gap-4 mt-8">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={prev}
-              data-testid="button-prev-testimonial"
-            >
+            <Button variant="outline" size="icon" onClick={prev} data-testid="button-prev-testimonial">
               <ChevronLeft className="h-5 w-5" />
             </Button>
-
             <div className="flex gap-2">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentIndex(index)}
-                  className={`h-2 rounded-full transition-all ${
-                    index === currentIndex ? 'w-8 bg-primary' : 'w-2 bg-muted-foreground/30'
-                  }`}
-                  data-testid={`dot-${index}`}
-                />
+              {testimonials.map((item, index) => (
+                <button key={item.id} onClick={() => setCurrentIndex(index)} className={`h-2 rounded-full transition-all ${index === currentIndex ? 'w-8 bg-primary' : 'w-2 bg-muted-foreground/30'}`} data-testid={`dot-${index}`} />
               ))}
             </div>
-
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={next}
-              data-testid="button-next-testimonial"
-            >
+            <Button variant="outline" size="icon" onClick={next} data-testid="button-next-testimonial">
               <ChevronRight className="h-5 w-5" />
             </Button>
           </div>

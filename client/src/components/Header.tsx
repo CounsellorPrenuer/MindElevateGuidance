@@ -11,6 +11,7 @@ export default function Header() {
     { href: '#why-mindelevate', label: 'Why MindElevate' },
     { href: '#about', label: 'About' },
     { href: '#services', label: 'Services' },
+    { href: '#pricing', label: 'Pricing' },
     { href: '#testimonials', label: 'Testimonials' },
     { href: '#blog', label: 'Blog' },
     { href: '#contact', label: 'Contact' },
@@ -51,7 +52,7 @@ export default function Header() {
 
           <div className="hidden lg:flex items-center">
             <Button variant="default" size="default" className="shadow-sm" asChild data-testid="button-book-session">
-              <Link href="#contact">Book a Session</Link>
+              <a href="#pricing" onClick={(e) => scrollToSection(e, '#pricing')}>View Pricing</a>
             </Button>
           </div>
 
@@ -80,7 +81,7 @@ export default function Header() {
               </a>
             ))}
             <Button variant="default" size="default" className="mt-2" asChild data-testid="button-mobile-book-session">
-              <Link href="#contact">Book a Session</Link>
+              <a href="#pricing" onClick={(e) => scrollToSection(e, '#pricing')}>View Pricing</a>
             </Button>
           </nav>
         </div>
@@ -88,3 +89,4 @@ export default function Header() {
     </header>
   );
 }
+

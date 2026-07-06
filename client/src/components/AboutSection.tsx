@@ -1,5 +1,5 @@
 import { Check, Award, Users, Target, Heart } from 'lucide-react';
-import doctorImage from '@assets/generated_images/Dr._Gladis_professional_portrait_e7784a16.png';
+import doctorImage from '@assets/dr_gladis_portrait.jpeg';
 
 export default function AboutSection() {
   const highlights = [

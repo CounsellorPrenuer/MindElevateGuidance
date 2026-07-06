@@ -1,48 +1,19 @@
-import { ArrowRight } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
+import { ArrowRight } from 'lucide-react';
 import { useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import type { Service } from '@shared/schema';
-import careerGuidanceImg from '@assets/generated_images/Career_guidance_service_illustration_af504192.png';
-import workshopImg from '@assets/generated_images/Workshop_service_illustration_4dfcdcbd.png';
-import admissionImg from '@assets/generated_images/Admission_guidance_service_illustration_71c3da6d.png';
+import { services as fallbackServices } from '@/content/siteContent';
+import { getServices } from '@/lib/sanity';
 
 export default function ServicesSection() {
   const [, setLocation] = useLocation();
-  //todo: remove mock functionality - fallback mock data
-  const mockServices = [
-    {
-      id: '1',
-      title: 'Career Guidance',
-      description: 'Personalized career counseling to help you discover your strengths, explore opportunities, and make informed decisions about your professional path.',
-      image: careerGuidanceImg,
-      features: ['Psychometric Assessments', 'Career Path Planning', 'Skill Development Guidance', 'One-on-One Mentoring'],
-      createdAt: new Date(),
-    },
-    {
-      id: '2',
-      title: 'Workshops & Seminars',
-      description: 'Interactive sessions for schools, colleges, and corporates focused on career awareness, skill development, and professional growth.',
-      image: workshopImg,
-      features: ['Student Career Programs', 'Corporate Training', 'Leadership Development', 'Parent Awareness Sessions'],
-      createdAt: new Date(),
-    },
-    {
-      id: '3',
-      title: 'Admission Guidance',
-      description: 'Expert guidance for higher education choices, college selection, and admission processes both in India and abroad.',
-      image: admissionImg,
-      features: ['College Selection Support', 'Application Assistance', 'Course Recommendations', 'Study Abroad Guidance'],
-      createdAt: new Date(),
-    },
-  ];
-
-  const { data: servicesData } = useQuery<Service[]>({
-    queryKey: ['/api/services'],
+  const { data } = useQuery({
+    queryKey: ['sanity', 'services'],
+    queryFn: getServices,
   });
 
-  const services = servicesData && servicesData.length > 0 ? servicesData : mockServices;
+  const services = data && data.length > 0 ? data : fallbackServices;
 
   return (
     <section id="services" className="py-16 md:py-24 bg-gradient-to-b from-background to-muted/30">
@@ -56,37 +27,25 @@ export default function ServicesSection() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <Card
-              key={index}
-              className="overflow-hidden hover-elevate active-elevate-2 transition-all duration-300 hover:shadow-lg"
-              data-testid={`card-service-${index}`}
-            >
-              <div className="aspect-[4/3] overflow-hidden">
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                />
+            <Card key={service.id} className="overflow-hidden hover-elevate active-elevate-2 transition-all duration-300 hover:shadow-lg" data-testid={`card-service-${index}`}>
+              <div className="aspect-[4/3] overflow-hidden bg-muted/40">
+                {service.image ? (
+                  <img src={service.image} alt={service.title} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
+                ) : null}
               </div>
               <div className="p-6">
                 <h3 className="text-2xl font-semibold mb-3">{service.title}</h3>
                 <p className="text-muted-foreground mb-4 leading-relaxed">{service.description}</p>
                 <ul className="space-y-2 mb-6">
-                  {service.features.map((feature, idx) => (
+                  {(service.features || []).map((feature, idx) => (
                     <li key={idx} className="flex items-center text-sm text-foreground/80">
                       <div className="h-1.5 w-1.5 rounded-full bg-primary mr-2" />
                       {feature}
                     </li>
                   ))}
                 </ul>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full"
-                  onClick={() => setLocation('/booking')}
-                  data-testid={`button-book-service-${index}`}
-                >
-                  Book Now
+                <Button variant="outline" size="sm" className="w-full" onClick={() => setLocation('/booking')} data-testid={`button-book-service-${index}`}>
+                  View Plans
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>

@@ -1,0 +1,11 @@
+name = "mindelevate-checkout-edge"
+main = "src/index.ts"
+compatibility_date = "2026-03-11"
+
+[vars]
+ALLOWED_ORIGINS = "https://counsellorprenuer.github.io"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mentoria-db"
+database_id = "a6b41b43-e530-4348-a208-1eb7b7b7fff9"
