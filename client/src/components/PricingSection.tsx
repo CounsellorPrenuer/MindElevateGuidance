@@ -128,10 +128,10 @@ export default function PricingSection() {
 
                 return (
                   <Card key={plan.id} className="relative z-10 rounded-2xl border border-[#e2e7ff] shadow-sm p-6 md:p-8 bg-white font-sans">
-                    <p className="text-xs uppercase tracking-[0.2em] font-semibold text-[#6e79e9] mb-4">{tier}</p>
-                    <h4 className="text-2xl md:text-3xl font-bold text-[#4f5ad2] mb-2">{plan.label}</h4>
-                    <p className="text-3xl md:text-4xl font-bold text-[#3f53d1] mb-8">
-                      <span className="text-lg font-semibold align-top mr-1">Rs.</span>
+                    <p className="text-xs uppercase tracking-[0.2em] font-semibold text-[#6e79e9] mb-2">{tier}</p>
+                    <h4 className="text-xl font-semibold text-[#4f5ad2] mb-3">{plan.label}</h4>
+                    <p className="text-2xl font-bold text-[#3f53d1] mb-6">
+                      <span className="text-sm font-semibold align-top mr-1">Rs.</span>
                       {money(plan.amountLabel)}
                     </p>
 
